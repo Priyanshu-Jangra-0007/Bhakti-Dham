@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bhakti Dham — Devotional Music Sanctuary</title>
+  <meta name="description"
+    content="Bhakti Dham is a devotional music platform where devotees can listen to bhajans and read sacred lyrics in one place.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Mukta:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="smooth antialiased">
+
+  <!-- ==================== NAVBAR ==================== -->
+  <header id="navbar" class="nav-glass fixed w-full z-50 top-0">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+      <div class="flex items-center justify-between h-[68px] sm:h-[76px]">
+
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3 group flex-shrink-0" onclick="navigateTo('home'); return false;">
+          <div
+            class="w-10 h-10 rounded-[14px] bg-gradient-to-br from-[#ff9a33] to-[#e65100] flex items-center justify-center text-white text-[18px]"
+            style="box-shadow:var(--shadow-logo);">ॐ</div>
+          <div>
+            <div class="text-[18px] sm:text-[20px] font-[600] tracking-[-0.01em]" style="color:var(--text-secondary);">
+              Bhakti Dham</div>
+            <div class="text-[10px] tracking-[0.18em] text-[#bf6a26] -mt-[2px] uppercase">भक्ति धाम</div>
+          </div>
+        </a>
+
+        <!-- Desktop SPA Navigation -->
+        <nav class="hidden md:flex items-center gap-4 text-[15px] font-[450]">
+          <button onclick="navigateTo('home')" class="nav-tab active" id="nav-home"
+            style="color:var(--text-nav);">Home</button>
+          <button onclick="navigateTo('bhajans')" class="nav-tab" id="nav-bhajans"
+            style="color:var(--text-nav);">Bhajans</button>
+          <button onclick="navigateTo('about')" class="nav-tab" id="nav-about"
+            style="color:var(--text-nav);">About</button>
+        </nav>
+
+        <!-- Right actions -->
+        <div class="flex items-center gap-3 sm:gap-4">
+          <!-- Search shortcut (visible on Bhajans page or redirects to it) -->
+          <button id="navSearchBtn"
+            class="flex items-center gap-2 px-3.5 py-[9px] rounded-full text-[13.5px] transition border"
+            style="background:var(--bg-btn-white);color:var(--text-muted);border-color:var(--border-btn);">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <span class="hidden sm:inline">Search</span>
+          </button>
+
+          <!-- Theme toggle -->
+          <button id="themeToggle" class="theme-toggle flex-shrink-0" aria-label="Toggle dark/light mode"
+            title="Toggle theme">
+            <span class="knob">
+              <span class="theme-icon-light">☀️</span>
+              <span class="theme-icon-dark" style="display:none;">🌙</span>
+            </span>
+          </button>
+
+          <!-- Mobile menu -->
+          <button id="mobileMenuBtn" class="md:hidden p-2 rounded-xl transition" aria-label="Menu"
+            style="background:var(--bg-btn-white);">
+            <svg id="menuIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile slide-down menu -->
+    <div id="mobileMenu" class="md:hidden hidden border-t animate-slideInDown"
+      style="background:var(--bg-glass);border-color:var(--border-nav);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);">
+      <div class="px-5 py-4 flex flex-col gap-3 text-[15px]">
+        <button onclick="navigateTo('home');" class="text-left py-2 font-medium"
+          style="color:var(--text-nav);">Home</button>
+        <button onclick="navigateTo('bhajans');" class="text-left py-2 font-medium"
+          style="color:var(--text-nav);">Bhajans</button>
+        <button onclick="navigateTo('about');" class="text-left py-2 font-medium"
+          style="color:var(--text-nav);">About</button>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ==================== PAGE 1: HOME ==================== -->
+  <main id="page-home" class="page-container page-active min-h-[90vh]">
+    <!-- Hero Section -->
+    <section class="relative min-h-[82vh] flex items-center overflow-hidden pt-20">
+      <div class="absolute inset-0">
+        <img
+          src="https://images.pexels.com/photos/16097644/pexels-photo-16097644.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1080&w=1920"
+          alt="" class="w-full h-full object-cover" />
+        <div class="absolute inset-0" style="background:var(--bg-hero-gradient),var(--bg-hero-radial);"></div>
+        <svg class="absolute bottom-0 w-full h-[170px]" viewBox="0 0 1440 170" preserveAspectRatio="none"
+          style="opacity:0.12;">
+          <path d="M0,170 C220,35 420,95 720,40 C1020,-12 1220,70 1440,40 L1440,170 Z" fill="var(--wave-color)" />
+        </svg>
+      </div>
+
+      <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 w-full py-16 sm:py-20">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          <!-- Left copy -->
+          <div class="lg:col-span-7 fade-up">
+            <div
+              class="inline-flex items-center gap-2 px-3 py-[6px] rounded-full text-[12px] tracking-wide shadow-sm mb-5 border"
+              style="background:var(--bg-btn-white);border-color:var(--border-chip);color:var(--text-label);">
+              <span class="w-[6px] h-[6px] rounded-full flicker" style="background:var(--saffron);"></span>
+              Sadhana Sanctuary • Open Anytime
+            </div>
+
+            <h1
+              style="font-size:clamp(40px,7.5vw,72px);line-height:0.92;letter-spacing:-0.025em;font-weight:650;color:var(--text-primary);">
+              <span class="devanagari block font-[600] mb-1"
+                style="font-size:clamp(28px,5vw,42px);color:var(--deep-orange);">॥ 🙏 ॥</span>
+              Bhakti<br>Dham
+            </h1>
+
+            <p class="mt-5 leading-relaxed max-w-[560px] font-[420]"
+              style="font-size:clamp(16px,2.5vw,20px);color:var(--text-body);">
+              Listen to devotional music and read sacred lyrics anytime.
+              A calm, temple-inspired sanctuary for bhajans, stotras, and kirtan — ad-free, distraction-free.
+            </p>
+
+            <div class="flex flex-wrap gap-3 mt-7">
+              <button onclick="navigateTo('bhajans')"
+                class="btn-saffron ripple px-6 py-[13px] rounded-full text-[15px] font-[550] transition-all inline-block">
+                Open Bhajan Tab
+              </button>
+              <button onclick="navigateTo('about')"
+                class="ripple px-6 py-[13px] rounded-full text-[15px] font-[520] transition border"
+                style="background:var(--bg-btn-white);border-color:var(--border-btn);color:var(--text-muted);">
+                Read Temple Story
+              </button>
+            </div>
+          </div>
+
+          <!-- Right float om visual -->
+          <div class="lg:col-span-5 relative min-h-[320px] flex items-center justify-center fade-up"
+            style="animation-delay:.12s">
+            <div class="absolute w-[340px] h-[340px] rounded-full"
+              style="background:radial-gradient(circle,rgba(255,215,120,.28) 0%,rgba(255,153,51,.10) 45%,transparent 70%);">
+            </div>
+
+            <div class="float-om relative z-10">
+              <div
+                class="w-[210px] h-[210px] rounded-[42px] border shadow-[0_22px_60px_rgba(171,80,10,.14)] flex items-center justify-center backdrop-blur-xl"
+                style="background:var(--bg-btn-white);border-color:var(--border-card);">
+                <div class="text-center">
+                  <div class="devanagari text-[74px] leading-none" style="color:#d96411;">ॐ</div>
+                  <div class="text-[11px] tracking-[0.22em] mt-1" style="color:var(--text-subtle);">OM NAMAH SHIVAYA
+                  </div>
+                </div>
+              </div>
+              <!-- diyas -->
+              <div class="absolute -left-10 top-12 flicker">
+                <div class="w-[26px] h-[26px] rounded-full diya-glow"
+                  style="background:linear-gradient(to bottom,#ffdf9a,#ff9933);"></div>
+              </div>
+              <div class="absolute -right-8 top-[122px] flicker" style="animation-delay:.9s">
+                <div class="w-[18px] h-[18px] rounded-full diya-glow"
+                  style="background:linear-gradient(to bottom,#ffe29f,#ff9933);"></div>
+              </div>
+              <div class="absolute left-1/2 -translate-x-1/2 -bottom-6 flicker" style="animation-delay:.4s">
+                <div class="w-[22px] h-[22px] rounded-full diya-glow"
+                  style="background:linear-gradient(to bottom,#ffe29f,#ff9a33);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 54" class="w-full h-[54px] block" preserveAspectRatio="none">
+          <path d="M0,34 C240,54 480,8 720,22 C960,36 1200,52 1440,24 L1440,54 L0,54Z" fill="var(--bg-secondary)" />
+        </svg>
+      </div>
+    </section>
+
+    <!-- Brief Complete Website Description Card -->
+    <section class="py-16 sm:py-24" style="background:var(--bg-secondary);">
+      <div class="max-w-4xl mx-auto px-5 sm:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <div class="text-[12px] tracking-[0.20em] uppercase font-[550] mb-2" style="color:var(--text-label);">Bhakti
+            Dham Sanctuary</div>
+          <h2 class="font-[650] tracking-[-0.02em] leading-tight"
+            style="font-size:clamp(26px,4.5vw,36px);color:var(--text-primary);">A Sacred Portal For Your Mind</h2>
+          <div class="w-16 h-[2.5px] bg-gradient-to-r from-[#ff9933] to-[#e65100] mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <div class="space-y-8">
+          <!-- card 1 -->
+          <div class="rounded-3xl border p-8 sm:p-10 transition hover:shadow-lg"
+            style="background:var(--bg-card);border-color:var(--border-card);">
+            <h3 class="text-[20px] font-[600] mb-4 flex items-center gap-3" style="color:var(--text-primary);">
+              <span class="text-2xl">🕉️</span> Our Devotional Vision
+            </h3>
+            <p class="leading-relaxed text-[16px] sm:text-[17px]" style="color:var(--text-body);">
+              Bhakti Dham is a modern, meditative, and premium-quality devotional music player crafted for seekers and
+              devotees. Unlike mainstream ad-cluttered platforms, Bhakti Dham is envisioned as a quiet virtual temple —
+              free from distractions, visual clutter, and unnecessary features. Here, the audio takes priority,
+              maintaining the serene purity of Vedic chants, kirtan, and stotras.
+            </p>
+          </div>
+
+          <!-- grid 2 columns -->
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div class="rounded-3xl border p-6 sm:p-8"
+              style="background:var(--bg-card);border-color:var(--border-card);">
+              <h4 class="text-[17px] font-[600] mb-3 flex items-center gap-2" style="color:var(--text-primary);">
+                <span class="text-lg">🕯️</span> Peaceful Temple Atmosphere
+              </h4>
+              <p class="text-[14.5px] leading-relaxed" style="color:var(--text-body);">
+                Designed with a warm palette of Saffron, Gold, Deep Orange, and Light Cream backgrounds to bring the
+                soothing warmth of temple oil lamps (diyas) right to your digital screen.
+              </p>
+            </div>
+            <div class="rounded-3xl border p-6 sm:p-8"
+              style="background:var(--bg-card);border-color:var(--border-card);">
+              <h4 class="text-[17px] font-[600] mb-3 flex items-center gap-2" style="color:var(--text-primary);">
+                <span class="text-lg">🌓</span> Pure Dual Tone Themes
+              </h4>
+              <p class="text-[14.5px] leading-relaxed" style="color:var(--text-body);">
+                Toggle effortlessly between light mode (sunlit temple sanctum) and dark mode (nighttime stotra
+                meditation). Your setting is remembered on subsequent visits.
+              </p>
+            </div>
+            <div class="rounded-3xl border p-6 sm:p-8"
+              style="background:var(--bg-card);border-color:var(--border-card);">
+              <h4 class="text-[17px] font-[600] mb-3 flex items-center gap-2" style="color:var(--text-primary);">
+                <span class="text-lg">🎧</span> Premium Audio & Keyboard Controls
+              </h4>
+              <p class="text-[14.5px] leading-relaxed" style="color:var(--text-body);">
+                An elegant custom bottom bar offers precise seeking, volume control, mute, shuffle, loop, and up-next
+                queue. Keyboard hotkeys make sadhana control swift and responsive.
+              </p>
+            </div>
+            <div class="rounded-3xl border p-6 sm:p-8"
+              style="background:var(--bg-card);border-color:var(--border-card);">
+              <h4 class="text-[17px] font-[600] mb-3 flex items-center gap-2" style="color:var(--text-primary);">
+                <span class="text-lg">🌿</span> Seamless Growth
+              </h4>
+              <p class="text-[14.5px] leading-relaxed" style="color:var(--text-body);">
+                Engineered with clean, modular Javascript. Devotional songs can be added effortlessly by inserting
+                high-fidelity audio streams into our metadata database.
+              </p>
+            </div>
+          </div>
+
+          <!-- bottom callout banner -->
+          <div class="rounded-[28px] p-8 text-center border relative overflow-hidden"
+            style="background:var(--bg-tertiary);border-color:var(--border-card);">
+            <div class="devanagari text-[20px] sm:text-[23px] leading-relaxed mb-4"
+              style="color:var(--text-secondary);">
+              मनो विनोदमेतु वस्तुनि ॥
+            </div>
+            <p class="max-w-md mx-auto text-[14.5px] mb-6" style="color:var(--text-muted);">
+              "May my mind find bliss and solace in the divine, unlimited truth."
+            </p>
+            <button onclick="navigateTo('bhajans')"
+              class="btn-saffron px-8 py-3 rounded-full text-[14.5px] font-[550] ripple inline-block">
+              Enter Bhajans Page
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ==================== PAGE 2: BHAJANS ==================== -->
+  <main id="page-bhajans" class="page-container min-h-[90vh]">
+    <div class="temple-border py-12 border-b" style="background:var(--bg-tertiary);border-color:var(--border-section);">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 text-center">
+        <div class="text-[12px] tracking-[0.20em] uppercase font-[550] mb-2" style="color:var(--text-label);">Online
+          Mandir Audio</div>
+        <h1 class="font-[650] tracking-[-0.018em]" style="font-size:clamp(30px,6vw,44px);color:var(--text-primary);">
+          Bhajan Sangrah</h1>
+        <p class="mt-2 max-w-[550px] mx-auto text-[15px]" style="color:var(--text-body);">Chant along, listen to
+          powerful chants, and find spiritual peace.</p>
+      </div>
+    </div>
+
+    <section class="py-12" style="background:var(--bg-secondary);">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+        <!-- Search & Filters -->
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-10 pb-6 border-b border-dashed"
+          style="border-color:var(--border-card);">
+          <!-- Tab Pills -->
+          <div class="flex flex-wrap gap-2 text-[12.5px]" id="filterPills">
+            <button data-tag="all" class="section-tab active">All Bhajans</button>
+            <button data-tag="Shiva" class="section-tab">🕉️ Shiva</button>
+            <button data-tag="Hanuman" class="section-tab">🐒 Hanuman</button>
+            <button data-tag="Mantra" class="section-tab">📿 Mantra</button>
+          </div>
+
+          <!-- Search input box -->
+          <div class="w-full md:w-[340px] relative">
+            <svg class="absolute left-4 top-1/2 -translate-y-1/2" width="16" height="15" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.5" style="color:var(--text-subtle);">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.3-4.3" />
+            </svg>
+            <input id="searchInput" type="text" placeholder="Search bhajan..."
+              class="w-full pl-11 pr-9 py-[11px] rounded-[16px] text-[14.5px] focus:outline-none focus:ring-2 transition border"
+              style="background:var(--bg-input);border-color:var(--border-input);box-shadow:var(--shadow-input);color:var(--text-body);" />
+            <button id="clearSearch" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-[11px] hidden"
+              style="color:var(--text-subtle);">✕</button>
+          </div>
+        </div>
+
+        <!-- Cards Grid -->
+        <div id="songGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
+          <!-- Javascript renders songs instantly here -->
+        </div>
+
+        <!-- No Results fallback -->
+        <div id="noResults" class="hidden text-center py-20" style="color:var(--text-subtle);">
+          <div class="text-[32px] mb-3">🪔</div>
+          <div class="text-[17px] font-[550]">No devotional music found</div>
+          <div class="text-[13.5px] mt-1">Try another keyword like "Shiv", "Mantra" or "Hanuman"</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ==================== PAGE 3: ABOUT ==================== -->
+  <main id="page-about" class="page-container min-h-[90vh]">
+    <!-- Header -->
+    <div class="temple-border py-12 border-b" style="background:var(--bg-tertiary);border-color:var(--border-section);">
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 text-center">
+        <div class="text-[12px] tracking-[0.20em] uppercase font-[550] mb-2" style="color:var(--text-label);">Sanctuary
+          Philosophy</div>
+        <h1 class="font-[650] tracking-[-0.018em]" style="font-size:clamp(30px,6vw,44px);color:var(--text-primary);">
+          About Bhakti Dham</h1>
+        <p class="mt-2 max-w-[550px] mx-auto text-[15px]" style="color:var(--text-body);">Preserving, sharing, and
+          elevating divine sound waves.</p>
+      </div>
+    </div>
+
+    <section class="py-16 sm:py-24" style="background:var(--bg-secondary);">
+      <div class="max-w-5xl mx-auto px-5 sm:px-8">
+        <div class="grid md:grid-cols-12 gap-10 items-start">
+
+          <!-- Left Side Copy -->
+          <div class="md:col-span-7 space-y-6">
+            <h2 class="text-[24px] sm:text-[28px] font-[650]" style="color:var(--text-primary);">A Quiet Temple For Your
+              Sadhana</h2>
+
+            <p class="leading-relaxed" style="color:var(--text-body);">
+              Bhakti Dham is a devotional music platform where devotees can listen to bhajans and read sacred lyrics in
+              one place. We designed this environment with absolute tranquility in mind. Every line of text, color
+              transition, and audio interaction is optimized for quiet morning and evening prayer sessions (Sadhana).
+            </p>
+
+            <p class="leading-relaxed" style="color:var(--text-body);">
+              In the rapid rush of everyday life, noise often drowns out silence. By offering clean, pure playback
+              without invasive advertisements or video recommendations, Bhakti Dham works to soothe the nervous system,
+              bringing listeners closer to the divine vibration of the cosmos.
+            </p>
+
+            <div class="border-l-4 pl-4 py-1 border-[#ff9933] italic text-[15px]" style="color:var(--text-muted);">
+              "Devotion is not a practice, it is a state of being where your heart beats with the rhythm of the
+              infinite."
+            </div>
+
+            <div class="space-y-4 pt-4">
+              <h3 class="text-[18px] font-[600]" style="color:var(--text-primary);">🌿 Platform Pillars</h3>
+              <ul class="space-y-2 text-[14.5px]" style="color:var(--text-body);">
+                <li class="flex gap-3"><span style="color:var(--deep-orange);">•</span> <b>Authentic Source Files:</b>
+                  All recordings are licensed under Creative Commons / Public Domain archival audio.</li>
+                <li class="flex gap-3"><span style="color:var(--deep-orange);">•</span> <b>No Data Harvest:</b> We
+                  respect the purity of your devotion; no tracking pixels, cookie popups, or accounts are required.</li>
+                <li class="flex gap-3"><span style="color:var(--deep-orange);">•</span> <b>Dual-Tone Calmness:</b> Relax
+                  your eyes under low light using our tailored Dark Mode.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Right Side Sidebar Info -->
+          <div class="md:col-span-5 space-y-6">
+            <!-- Timing info block -->
+            <div class="rounded-3xl border p-6"
+              style="background:var(--bg-card);border-color:var(--border-card);box-shadow:var(--shadow-card);">
+              <h3 class="text-[17px] font-[600] mb-4 flex items-center gap-2" style="color:var(--text-primary);">
+                <span class="text-lg">⏰</span> Daily Ritual Timings
+              </h3>
+              <div class="space-y-3 text-[14px]">
+                <div class="flex justify-between pb-2 border-b border-dashed" style="border-color:var(--border-card);">
+                  <span style="color:var(--text-muted);">Mangala Aarti</span>
+                  <span class="font-medium" style="color:var(--text-primary);">04:30 AM</span>
+                </div>
+                <div class="flex justify-between pb-2 border-b border-dashed" style="border-color:var(--border-card);">
+                  <span style="color:var(--text-muted);">Sandhya Aarti</span>
+                  <span class="font-medium" style="color:var(--text-primary);">06:30 PM</span>
+                </div>
+                <div class="flex justify-between pb-2" style="border-color:var(--border-card);">
+                  <span style="color:var(--text-muted);">Shayan Japa</span>
+                  <span class="font-medium" style="color:var(--text-primary);">09:00 PM</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sanskrit Quote -->
+            <div class="rounded-3xl border p-6 relative overflow-hidden"
+              style="background:var(--bg-tertiary);border-color:var(--border-card);">
+              <div class="devanagari text-[20px] leading-relaxed" style="color:#a64d0e;">
+                सर्वे भवन्तु सुखिनः<br>
+                सर्वे सन्तु निरामयाः ।
+              </div>
+              <div class="text-[13px] mt-2" style="color:var(--text-subtle);">May all be happy. May all be free from
+                illness.</div>
+              <div class="mt-4 text-[11px] uppercase tracking-wider text-[#b57a4a]">— Brihadaranyaka Upanishad</div>
+            </div>
+
+            <!-- Developer Info -->
+            <div class="p-4 text-center text-[12px] opacity-75" style="color:var(--text-subtle);">
+              Built with ❤️ for devotees everywhere.<br>
+              Keyboard: <b>Space</b> (Play/Pause) • <b>← →</b> (Prev/Next) • <b>R</b> (Repeat) • <b>S</b> (Shuffle)
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer style="border-top:1px solid var(--border-footer);background:var(--bg-footer);" class="mb-[106px]">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-10">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-[14px]"
+        style="color:var(--text-footer);">
+        <div class="flex items-center gap-3">
+          <div class="text-[20px]">ॐ</div>
+          <div>
+            <div class="font-[600]" style="color:var(--text-secondary);">Bhakti Dham</div>
+            <div class="text-[12.5px] style='color:var(--text-subtle);'">भक्ति धाम • est. 2026</div>
+          </div>
+        </div>
+        <div class="text-center md:text-right">
+          <div>© 2026 Bhakti Dham • Made with ❤️ for devotees</div>
+          <div class="text-[12px] mt-1" style="color:var(--text-subtle);">Shanti • Shanti • Shantiḥ</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ==================== FIXED AUDIO PLAYER ==================== -->
+  <div id="audioPlayerBar"
+    class="player-glass fixed bottom-0 left-0 right-0 z-[60] translate-y-[110%] transition-transform duration-400"
+    style="transition-timing-function:cubic-bezier(.2,.9,.2,1);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="py-[13px] sm:py-[14px]">
+        <div class="flex flex-col lg:flex-row lg:items-center gap-3 lg:gap-6">
+
+          <!-- Track info -->
+          <div class="flex items-center gap-3 min-w-0 lg:w-[300px] flex-shrink-0">
+            <div class="relative w-[52px] h-[52px] rounded-[14px] overflow-hidden flex-shrink-0"
+              style="box-shadow:var(--shadow-art);background:var(--progress-track);">
+              <img id="playerArt" src="" alt="" class="w-full h-full object-cover">
+              <div id="playingHalo" class="absolute inset-0 rounded-[14px] ring-2 ring-[#ffac4a]/0 transition"></div>
+            </div>
+            <div class="min-w-0">
+              <div id="playerTitle" class="text-[15px] font-[600] truncate" style="color:var(--text-player-title);">—
+              </div>
+              <div id="playerArtist" class="text-[12.5px] truncate" style="color:var(--text-player-artist);">—</div>
+            </div>
+          </div>
+
+          <!-- Center: transport + progress -->
+          <div class="flex-1 min-w-0 order-3 lg:order-2">
+
+            <div class="flex items-center justify-center gap-4 sm:gap-5">
+              <button id="shuffleBtn" class="transition p-1 cursor-pointer" title="Shuffle (S)"
+                style="color:var(--text-subtle);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 3 21 3 21 8" />
+                  <line x1="4" y1="20" x2="21" y2="3" />
+                  <polyline points="21 16 21 21 16 21" />
+                  <line x1="15" y1="15" x2="21" y2="21" />
+                  <line x1="4" y1="4" x2="9" y2="9" />
+                </svg>
+              </button>
+              <button id="prevBtn" class="transition cursor-pointer" aria-label="Previous"
+                style="color:var(--text-muted);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="19 20 9 12 19 4 19 20" />
+                  <line x1="5" y1="19" x2="5" y2="5" />
+                </svg>
+              </button>
+              <button id="playPauseBtn"
+                class="w-[52px] h-[52px] rounded-full btn-saffron flex items-center justify-center active:scale-95 transition-transform cursor-pointer"
+                aria-label="Play/Pause">
+                <svg id="playIcon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="8,5 19,12 8,19" />
+                </svg>
+                <svg id="pauseIcon" class="hidden" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="7" y="5" width="3.5" height="14" rx="1" />
+                  <rect x="13.5" y="5" width="3.5" height="14" rx="1" />
+                </svg>
+              </button>
+              <button id="nextBtn" class="transition cursor-pointer" aria-label="Next" style="color:var(--text-muted);">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="5 4 15 12 5 20 5 4" />
+                  <line x1="19" y1="5" x2="19" y2="19" />
+                </svg>
+              </button>
+              <button id="repeatBtn" class="transition p-1 cursor-pointer" title="Repeat (R)"
+                style="color:var(--text-subtle);">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="17 1 21 5 17 9" />
+                  <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+                  <polyline points="7 23 3 19 7 15" />
+                  <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+                </svg>
+              </button>
+            </div>
+            <!-- progress -->
+            <div class="flex items-center gap-3 mt-[10px]">
+              <span id="currentTime" class="text-[11.5px] tabular-nums w-[38px] text-right"
+                style="color:var(--text-time);">0:00</span>
+              <div id="progressTrack" class="progress-track flex-1">
+                <div id="progressFill" class="progress-fill"></div>
+              </div>
+              <span id="totalTime" class="text-[11.5px] tabular-nums w-[38px]"
+                style="color:var(--text-time);">0:00</span>
+            </div>
+          </div>
+
+          <!-- Right controls -->
+          <div
+            class="flex items-center justify-between lg:justify-end gap-3 order-2 lg:order-3 lg:w-[280px] flex-shrink-0">
+            <div class="flex items-center gap-2">
+              <button id="muteBtn" title="Mute" style="color:var(--text-subtle);" class="cursor-pointer">
+                <svg id="volIcon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                </svg>
+              </button>
+              <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.85"
+                style="width:84px;accent-color:var(--deep-orange);" class="sm:w-[106px] cursor-pointer">
+            </div>
+            <button id="queueBtn"
+              class="text-[12px] px-3.5 py-[7px] rounded-full border hidden sm:block transition cursor-pointer"
+              title="Up next"
+              style="background:var(--bg-btn-white);border-color:var(--border-btn);color:var(--text-muted);">Up Next
+              Queue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== QUEUE POPOVER ==================== -->
+  <div id="queuePopover"
+    class="hidden fixed right-4 bottom-[106px] z-[65] w-[320px] max-w-[92vw] rounded-[18px] border overflow-hidden"
+    style="background:var(--bg-queue);border-color:var(--border-queue);box-shadow:var(--shadow-queue);">
+    <div class="px-4 py-3 border-b text-[13px] font-[600]"
+      style="border-color:var(--border-modal-inner);color:var(--text-muted);">Up next</div>
+    <div id="queueList" class="max-h-[320px] overflow-y-auto text-[13.5px]"></div>
+  </div>
+
+  <!-- ==================== TOAST ==================== -->
+  <div id="toast"
+    class="fixed bottom-[116px] left-1/2 -translate-x-1/2 text-[13px] px-4 py-[10px] rounded-full shadow-xl z-[80] opacity-0 pointer-events-none transition-opacity duration-300"
+    style="background:var(--bg-toast);color:var(--text-toast);">Saved</div>
+
+  <!-- ==================== HIDDEN AUDIO ELEMENT ==================== -->
+  <audio id="audioEl" preload="metadata"></audio>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script src="script.js" defer></script>
+</body>
+
+</html>
