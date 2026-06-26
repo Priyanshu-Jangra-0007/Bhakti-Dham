@@ -135,6 +135,30 @@ const queuePopover = $('#queuePopover');
 const queueList = $('#queueList');
 const toastEl = $('#toast');
 
+/* =========================
+   FULL SCREEN PLAYER REFS
+   ========================= */
+const fullPlayerView = $('#fullPlayerView');
+const closeFullPlayer = $('#closeFullPlayer');
+const fullPlayerArt = $('#fullPlayerArt');
+const fullPlayerTitle = $('#fullPlayerTitle');
+const fullPlayerArtist = $('#fullPlayerArtist');
+const fullPlayerHeart = $('#fullPlayerHeart');
+const fullProgressTrack = $('#fullProgressTrack');
+const fullProgressFill = $('#fullProgressFill');
+const fullCurrentTime = $('#fullCurrentTime');
+const fullTotalTime = $('#fullTotalTime');
+const fullShuffleBtn = $('#fullShuffleBtn');
+const fullPrevBtn = $('#fullPrevBtn');
+const fullPlayPauseBtn = $('#fullPlayPauseBtn');
+const fullPlayIcon = $('#fullPlayIcon');
+const fullPauseIcon = $('#fullPauseIcon');
+const fullNextBtn = $('#fullNextBtn');
+const fullRepeatBtn = $('#fullRepeatBtn');
+const fullQueueBtn = $('#fullQueueBtn');
+const fullLyricsBtn = $('#fullLyricsBtn');
+
+
 
 /* =========================
    THEME SWITCHING (LIGHT/DARK)
@@ -220,7 +244,12 @@ function loadSong(idx, autoplay = false) {
   playerBar.classList.remove('translate-y-[110%]');
   updateMediaSession();
 
-
+  // Update full screen player metadata & heart status
+  if (fullPlayerArt) fullPlayerArt.src = s.image;
+  if (fullPlayerTitle) fullPlayerTitle.textContent = s.title;
+  if (fullPlayerArtist) fullPlayerArtist.textContent = s.artist;
+  const isFav = localStorage.getItem(`fav-${s.id}`) === 'true';
+  if (fullPlayerHeart) fullPlayerHeart.classList.toggle('favorited', isFav);
 
   if (autoplay) { audio.play().then(() => { isPlaying = true; updatePlayUI(); }).catch(() => { }); }
 }
@@ -233,8 +262,21 @@ function togglePlay() {
 }
 
 function updatePlayUI() {
-  if (isPlaying) { playIcon.classList.add('hidden'); pauseIcon.classList.remove('hidden'); }
-  else { playIcon.classList.remove('hidden'); pauseIcon.classList.add('hidden'); }
+  if (isPlaying) {
+    playIcon.classList.add('hidden');
+    pauseIcon.classList.remove('hidden');
+    if (fullPlayIcon) fullPlayIcon.classList.add('hidden');
+    if (fullPauseIcon) fullPauseIcon.classList.remove('hidden');
+    $('#fullPlayingHalo')?.classList.add('ring-[#ff9933]/30');
+    $('#playingHalo')?.classList.add('ring-[#ffac4a]/30');
+  } else {
+    playIcon.classList.remove('hidden');
+    pauseIcon.classList.add('hidden');
+    if (fullPlayIcon) fullPlayIcon.classList.remove('hidden');
+    if (fullPauseIcon) fullPauseIcon.classList.add('hidden');
+    $('#fullPlayingHalo')?.classList.remove('ring-[#ff9933]/30');
+    $('#playingHalo')?.classList.remove('ring-[#ffac4a]/30');
+  }
 }
 
 function nextTrack() {
@@ -260,13 +302,19 @@ audio.addEventListener('play', () => { isPlaying = true; updatePlayUI(); });
 audio.addEventListener('pause', () => { isPlaying = false; updatePlayUI(); });
 audio.addEventListener('timeupdate', () => {
   if (audio.duration) {
-    progressFill.style.width = (audio.currentTime / audio.duration) * 100 + '%';
-    currentTimeEl.textContent = formatTime(audio.currentTime);
+    const pct = (audio.currentTime / audio.duration) * 100 + '%';
+    progressFill.style.width = pct;
+    if (fullProgressFill) fullProgressFill.style.width = pct;
 
+    const formattedCurrent = formatTime(audio.currentTime);
+    currentTimeEl.textContent = formattedCurrent;
+    if (fullCurrentTime) fullCurrentTime.textContent = formattedCurrent;
   }
 });
 audio.addEventListener('loadedmetadata', () => {
-  totalTimeEl.textContent = formatTime(audio.duration || 0);
+  const formattedDuration = formatTime(audio.duration || 0);
+  totalTimeEl.textContent = formattedDuration;
+  if (fullTotalTime) fullTotalTime.textContent = formattedDuration;
 });
 audio.addEventListener('ended', () => {
   if (isRepeat) { audio.currentTime = 0; audio.play(); } else { nextTrack(); }
@@ -429,6 +477,94 @@ function updateMediaSession() {
 /* =========================
    INIT ROUTING
    ========================= */
+/* ============================================
+   FULL-SCREEN PLAYER EVENT LISTENERS
+   ============================================ */
+
+// Open full screen player on player bar click (avoiding buttons/sliders)
+playerBar.addEventListener('click', (e) => {
+  if (e.target.closest('button') || e.target.closest('input')) return;
+  fullPlayerView.classList.add('open');
+  document.body.classList.add('full-player-open');
+  syncFullPlayerControls();
+});
+
+// Close/minimize player view
+closeFullPlayer.addEventListener('click', () => {
+  fullPlayerView.classList.remove('open');
+  document.body.classList.remove('full-player-open');
+});
+
+// Sync function for repeat, shuffle, and favorite states
+function syncFullPlayerControls() {
+  if (fullShuffleBtn) {
+    fullShuffleBtn.classList.toggle('active', isShuffle);
+    fullShuffleBtn.style.color = isShuffle ? 'var(--deep-orange)' : 'var(--text-subtle)';
+  }
+  if (fullRepeatBtn) {
+    fullRepeatBtn.classList.toggle('active', isRepeat);
+    fullRepeatBtn.style.color = isRepeat ? 'var(--deep-orange)' : 'var(--text-subtle)';
+  }
+  const s = songs[currentIndex];
+  const isFav = localStorage.getItem(`fav-${s.id}`) === 'true';
+  if (fullPlayerHeart) {
+    fullPlayerHeart.classList.toggle('favorited', isFav);
+  }
+}
+
+// Favorite Heart button click toggle
+fullPlayerHeart.addEventListener('click', () => {
+  const s = songs[currentIndex];
+  const isFav = localStorage.getItem(`fav-${s.id}`) === 'true';
+  const nextFav = !isFav;
+  localStorage.setItem(`fav-${s.id}`, nextFav ? 'true' : 'false');
+  fullPlayerHeart.classList.toggle('favorited', nextFav);
+  showToast(nextFav ? "❤️ पसंदीदा सूची में जोड़ा गया" : "💔 पसंदीदा सूची से हटाया गया");
+});
+
+// Transport button controls inside full player
+if (fullPlayPauseBtn) fullPlayPauseBtn.addEventListener('click', togglePlay);
+if (fullPrevBtn) fullPrevBtn.addEventListener('click', prevTrack);
+if (fullNextBtn) fullNextBtn.addEventListener('click', nextTrack);
+
+if (fullShuffleBtn) {
+  fullShuffleBtn.addEventListener('click', () => {
+    shuffleBtn.click();
+    syncFullPlayerControls();
+  });
+}
+if (fullRepeatBtn) {
+  fullRepeatBtn.addEventListener('click', () => {
+    repeatBtn.click();
+    syncFullPlayerControls();
+  });
+}
+
+// Progress slider seeking inside full player
+if (fullProgressTrack) {
+  fullProgressTrack.addEventListener('click', (e) => {
+    if (!audio.duration) return;
+    const rect = fullProgressTrack.getBoundingClientRect();
+    audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+  });
+}
+
+// Bottom row helper buttons
+if (fullQueueBtn) {
+  fullQueueBtn.addEventListener('click', () => {
+    // Open standard queue popover
+    queueBtn.click();
+  });
+}
+if (fullLyricsBtn) {
+  fullLyricsBtn.addEventListener('click', () => {
+    showToast("📖 " + songs[currentIndex].title + " का काव्य शीघ्र ही आ रहा है...");
+  });
+}
+
+/* ============================================
+   INIT ROUTING
+   ============================================ */
 window.addEventListener('hashchange', handleHashRoute);
 handleHashRoute();
 

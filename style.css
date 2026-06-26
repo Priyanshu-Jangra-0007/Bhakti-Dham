@@ -363,3 +363,123 @@ body { background: var(--bg-primary); color: var(--text-body); margin:0; padding
     line-height: 1.0 !important;
   }
 }
+
+/* ============================================
+   FULL-SCREEN MUSIC PLAYER MODAL STYLING
+   ============================================ */
+#fullPlayerView {
+  /* Ensure a beautiful, modern transition */
+  will-change: transform;
+}
+
+/* Open state for slide-up */
+#fullPlayerView.open {
+  transform: translateY(0) !important;
+  translate: 0 0 !important; /* Resets Tailwind v4 translate-y-full */
+}
+
+/* Make artwork card scale down on short mobile viewports to prevent overflow */
+@media (max-height: 720px) {
+  #fullPlayerView .aspect-square {
+    max-width: 240px !important;
+  }
+}
+@media (max-height: 600px) {
+  #fullPlayerView .aspect-square {
+    max-width: 170px !important;
+  }
+  #fullPlayerTitle {
+    font-size: 18px !important;
+  }
+  #fullPlayerView {
+    padding: 12px 16px !important;
+  }
+}
+
+/* Desktop layout: floating premium modal card */
+@media (min-width: 1024px) {
+  #fullPlayerView {
+    inset: auto !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, 150%) !important; /* Starts off-screen downwards */
+    width: 440px !important;
+    height: 680px !important;
+    border-radius: 40px !important;
+    border: 1px solid var(--border-card) !important;
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.35) !important;
+    transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.2, 1) !important;
+  }
+  #fullPlayerView.open {
+    transform: translate(-50%, -50%) !important;
+  }
+  
+  /* Dim overlay behind modal on desktop */
+  #fullPlayerView::before {
+    content: '';
+    position: fixed;
+    inset: -2000px;
+    z-index: -1;
+    background: rgba(0,0,0,0.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  #fullPlayerView.open::before {
+    opacity: 1;
+  }
+}
+
+/* Body scroll lock when open */
+body.full-player-open {
+  overflow: hidden !important;
+}
+
+/* Clickable hover on bottom mini bar */
+#audioPlayerBar {
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.2, 1), background-color 0.3s ease;
+}
+#audioPlayerBar:hover {
+  background-color: var(--bg-chips-active);
+}
+
+/* Option & heart button micro-interactions */
+#closeFullPlayer svg, #fullPlayerOptions svg, #fullPlayerHeart svg {
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), stroke 0.2s ease, fill 0.2s ease;
+}
+
+#closeFullPlayer:active svg, #fullPlayerOptions:active svg {
+  transform: translateY(2px) scale(0.92);
+}
+
+#fullPlayerHeart.favorited svg {
+  fill: #e65100;
+  stroke: #e65100;
+  transform: scale(1.18);
+  animation: heartPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+[data-theme="dark"] #fullPlayerHeart.favorited svg {
+  fill: #ff9933;
+  stroke: #ff9933;
+}
+
+#fullPlayerHeart:active svg {
+  transform: scale(0.85);
+}
+
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1.18); }
+}
+
+/* Synchronization of active buttons inside full player */
+#fullShuffleBtn.active, #fullRepeatBtn.active {
+  color: #e65100 !important;
+}
+[data-theme="dark"] #fullShuffleBtn.active, 
+[data-theme="dark"] #fullRepeatBtn.active {
+  color: #ff9933 !important;
+}
