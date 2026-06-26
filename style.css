@@ -246,3 +246,120 @@ body { background: var(--bg-primary); color: var(--text-body); margin:0; padding
 /* temple pattern */
 .temple-border { background-image: repeating-linear-gradient(90deg, rgba(230,81,0,0.04) 0 28px, transparent 28px 56px); }
 [data-theme="dark"] .temple-border { background-image: repeating-linear-gradient(90deg, rgba(255,153,51,0.04) 0 28px, transparent 28px 56px); }
+
+/* ============================================
+   RESPONSIVE DESIGN / MEDIA QUERIES
+   ============================================ */
+
+/* Tablet & Mobile Screens (< 1024px) */
+@media (max-width: 1023px) {
+  /* Sleek top-aligned progress bar on mobile player */
+  .player-progress-row {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin-top: 0 !important;
+    gap: 0 !important;
+    z-index: 10;
+  }
+  
+  .player-progress-row #currentTime,
+  .player-progress-row #totalTime {
+    display: none !important;
+  }
+
+  .player-progress-row .progress-track {
+    height: 3.5px !important;
+    border-radius: 0 !important;
+  }
+
+  /* Force player elements to stay in a single row */
+  .player-bar-flex {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+  }
+
+  /* Compact padding for player bar container */
+  #audioPlayerBar {
+    padding-top: 14px !important;
+    padding-bottom: 12px !important;
+  }
+
+  /* Flex sizing for track info */
+  .player-track-info {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+  }
+  .player-track-info img {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 10px !important;
+  }
+
+  /* Place center controls next to track info, align right */
+  .player-center-controls {
+    order: 2 !important;
+    flex: 0 0 auto !important;
+    margin-top: 0 !important;
+  }
+
+  /* Hide secondary buttons to save space */
+  #shuffleBtn,
+  #repeatBtn {
+    display: none !important;
+  }
+
+  .player-buttons-row {
+    gap: 12px !important;
+  }
+
+  #playPauseBtn {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  #playPauseBtn svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  
+  /* Place right controls (queue/volume) after transport buttons */
+  .player-right-controls {
+    order: 3 !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    gap: 10px !important;
+  }
+
+  /* Hide volume slider on mobile, but keep mute button and queue */
+  .player-right-controls #volumeSlider {
+    display: none !important;
+  }
+
+  /* Ensure footer has correct margin to avoid overlapping with player bar */
+  footer {
+    margin-bottom: 82px !important;
+  }
+}
+
+/* Small Mobile Screens (< 640px) */
+@media (max-width: 639px) {
+  /* Hide previous track button on tiny mobile screens to avoid overlap */
+  #prevBtn {
+    display: none !important;
+  }
+  
+  /* Hide right controls entirely on very small screens */
+  .player-right-controls {
+    display: none !important;
+  }
+
+  /* Hero Section spacing adjustments for phone screen */
+  h1 {
+    font-size: clamp(34px, 10vw, 48px) !important;
+    line-height: 1.0 !important;
+  }
+}
