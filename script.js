@@ -481,18 +481,59 @@ function updateMediaSession() {
    FULL-SCREEN PLAYER EVENT LISTENERS
    ============================================ */
 
-// Open full screen player on player bar click (avoiding buttons/sliders)
-playerBar.addEventListener('click', (e) => {
-  if (e.target.closest('button') || e.target.closest('input')) return;
+let isFullPlayerOpen = false;
+
+function openFullPlayer() {
+  if (isFullPlayerOpen) return;
+  isFullPlayerOpen = true;
   fullPlayerView.classList.add('open');
   document.body.classList.add('full-player-open');
   syncFullPlayerControls();
+  // Push a history state so pressing Back minimizes the player
+  history.pushState({ fullPlayer: true }, '');
+}
+
+function closeFullPlayerView() {
+  if (!isFullPlayerOpen) return;
+  isFullPlayerOpen = false;
+  fullPlayerView.classList.remove('open');
+  document.body.classList.remove('full-player-open');
+}
+
+// Open full screen player on player bar click (avoiding buttons/sliders)
+playerBar.addEventListener('click', (e) => {
+  if (e.target.closest('button') || e.target.closest('input')) return;
+  openFullPlayer();
 });
 
 // Close/minimize player view
 closeFullPlayer.addEventListener('click', () => {
-  fullPlayerView.classList.remove('open');
-  document.body.classList.remove('full-player-open');
+  // Pop the history state we pushed when opening
+  if (isFullPlayerOpen) {
+    history.back();
+  }
+});
+
+// Handle browser Back button: minimize player instead of navigating away
+window.addEventListener('popstate', (e) => {
+  if (isFullPlayerOpen) {
+    // The back press pops our fullPlayer state — just close the panel
+    closeFullPlayerView();
+    return;
+  }
+
+  // If we're on the home page and music is playing, ask for confirmation
+  if (currentPage === 'home' && isPlaying) {
+    const leave = confirm('🎵 भजन चल रहा है। क्या आप वाकई बाहर जाना चाहते हैं?\n(Music is playing. Do you really want to leave?)');
+    if (!leave) {
+      // Stay on the page — push state back
+      history.pushState(null, '', `#${currentPage}`);
+      return;
+    }
+  }
+
+  // Otherwise, handle normal hash routing
+  handleHashRoute();
 });
 
 // Sync function for repeat, shuffle, and favorite states

@@ -372,7 +372,7 @@ body { background: var(--bg-primary); color: var(--text-body); margin:0; padding
   will-change: transform;
 }
 
-/* Open state for slide-up */
+/* Open state for slide-up (mobile) */
 #fullPlayerView.open {
   transform: translateY(0) !important;
   translate: 0 0 !important; /* Resets Tailwind v4 translate-y-full */
@@ -381,52 +381,71 @@ body { background: var(--bg-primary); color: var(--text-body); margin:0; padding
 /* Make artwork card scale down on short mobile viewports to prevent overflow */
 @media (max-height: 720px) {
   #fullPlayerView .aspect-square {
-    max-width: 240px !important;
+    max-width: 220px !important;
   }
 }
 @media (max-height: 600px) {
   #fullPlayerView .aspect-square {
-    max-width: 170px !important;
+    max-width: 160px !important;
   }
   #fullPlayerTitle {
     font-size: 18px !important;
   }
   #fullPlayerView {
-    padding: 12px 16px !important;
+    padding: 10px 14px !important;
   }
 }
 
-/* Desktop layout: floating premium modal card */
+/* ---- Desktop: Right-side panel layout ---- */
 @media (min-width: 1024px) {
   #fullPlayerView {
-    inset: auto !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, 150%) !important; /* Starts off-screen downwards */
-    width: 440px !important;
-    height: 680px !important;
-    border-radius: 40px !important;
-    border: 1px solid var(--border-card) !important;
-    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.35) !important;
-    transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.2, 1) !important;
+    inset: auto 0 0 auto !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    bottom: 0 !important;
+    width: 380px !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    border-left: 1px solid var(--border-card) !important;
+    box-shadow: -12px 0 40px rgba(0,0,0,0.12) !important;
+    transform: translateX(100%) !important;
+    translate: none !important;
+    transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.2, 1) !important;
+    padding: 20px 24px !important;
   }
   #fullPlayerView.open {
-    transform: translate(-50%, -50%) !important;
+    transform: translateX(0) !important;
+    translate: none !important;
   }
-  
-  /* Dim overlay behind modal on desktop */
+
+  /* Shift main content left when side panel is open */
+  body.full-player-open .page-container,
+  body.full-player-open footer {
+    margin-right: 380px !important;
+    transition: margin-right 0.45s cubic-bezier(0.2, 0.9, 0.2, 1);
+  }
+
+  /* Keep bottom player bar trimmed when side panel is open */
+  body.full-player-open #audioPlayerBar {
+    right: 380px !important;
+    transition: right 0.45s cubic-bezier(0.2, 0.9, 0.2, 1);
+  }
+
+  /* Desktop art sizing: smaller to fit panel */
+  #fullPlayerView .aspect-square {
+    max-width: 260px !important;
+  }
+
+  /* No body scroll lock on desktop; only side panel scrolls */
+  body.full-player-open {
+    overflow: auto !important;
+  }
+
+  /* No dim overlay needed */
   #fullPlayerView::before {
-    content: '';
-    position: fixed;
-    inset: -2000px;
-    z-index: -1;
-    background: rgba(0,0,0,0.3);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-  }
-  #fullPlayerView.open::before {
-    opacity: 1;
+    display: none !important;
   }
 }
 
