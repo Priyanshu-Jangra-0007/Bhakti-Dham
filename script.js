@@ -19,7 +19,7 @@ const songs = [
     deity: "Hanuman",
     tag: "Hanuman",
     durationLabel: "7:44",
-    image: "https://images.pexels.com/photos/12712521/pexels-photo-12712521.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
+    image: "https://images.pexels.com/photos/33077251/pexels-photo-33077251.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
     audio: "public/songs/hanuman chalisa.mp3"
   },
   {
@@ -27,7 +27,7 @@ const songs = [
     title: "Om Namah Shivaya",
     artist: "Vedic Chant • 108 Japa",
     deity: "Shiva",
-    tag: "Mantra",
+    tag: "Shiva",
     durationLabel: "5:38",
     image: "https://images.pexels.com/photos/5546466/pexels-photo-5546466.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
     audio: "public/songs/Om Namah Shivay Dhun 108 Times.mp3"
@@ -59,7 +59,7 @@ const songs = [
     deity: "Hanuman",
     tag: "Hanuman",
     durationLabel: "4:15",
-    image: "https://images.pexels.com/photos/29501739/pexels-photo-29501739.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
+    image: "https://images.pexels.com/photos/9921537/pexels-photo-9921537.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
     audio: "public/songs/Hanuman Aarti.webm"
   },
   {
@@ -71,8 +71,35 @@ const songs = [
     durationLabel: "10:30",
     image: "https://images.pexels.com/photos/37399739/pexels-photo-37399739.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
     audio: "public/songs/Ashutosh Shashank Shekhar_ 256kbps.webm"
+  },
+  {
+    id: 8,
+    title: "Gayatri Mantra",
+    artist: "Vedic Chant • 108 Times",
+    deity: "Devi",
+    tag: "Mantra",
+    durationLabel: "27:00",
+    image: "https://images.pexels.com/photos/8887187/pexels-photo-8887187.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
+    audio: "public/songs/Gayatri Mantra 108 times.webm"
   }
 ];
+
+/* =========================
+   INTRO SPLASH SCREEN
+   ========================= */
+(function () {
+  const splash = document.getElementById('introSplash');
+  if (splash) {
+    // Wait for fonts to load so ॐ doesn't flicker
+    document.fonts.ready.then(() => {
+      splash.classList.add('intro-ready');
+      setTimeout(() => {
+        splash.classList.add('intro-hidden');
+        splash.addEventListener('transitionend', () => splash.remove(), { once: true });
+      }, 1000);
+    });
+  }
+})();
 
 /* =========================
    SPA PAGE ROUTING SYSTEM

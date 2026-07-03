@@ -1,4 +1,76 @@
 /* ============================================
+   INTRO SPLASH SCREEN
+   ============================================ */
+.intro-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('https://images.pexels.com/photos/18120085/pexels-photo-18120085.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1080&w=1920') center/cover no-repeat;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.intro-splash::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(20,10,4,0.65) 0%, rgba(8,4,2,0.85) 100%);
+}
+.intro-splash.intro-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.intro-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  opacity: 0;
+}
+.intro-splash.intro-ready .intro-content {
+  animation: introFadeIn 0.7s ease-out both;
+}
+.intro-om {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: clamp(60px, 15vw, 110px);
+  line-height: 1;
+  color: #ff9933;
+  text-shadow: 0 0 40px rgba(255, 153, 51, 0.5), 0 0 80px rgba(255, 153, 51, 0.2);
+  animation: introGlow 1.8s ease-in-out infinite alternate;
+  margin-bottom: 16px;
+}
+.intro-line1 {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: clamp(22px, 5vw, 36px);
+  font-weight: 600;
+  color: #ffe0b2;
+  opacity: 0;
+  animation: introTextUp 0.6s ease-out 0.3s forwards;
+}
+.intro-line2 {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: clamp(14px, 3vw, 20px);
+  font-weight: 400;
+  color: #c48a52;
+  margin-top: 10px;
+  opacity: 0;
+  animation: introTextUp 0.6s ease-out 0.55s forwards;
+}
+@keyframes introFadeIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes introTextUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes introGlow {
+  from { text-shadow: 0 0 30px rgba(255,153,51,0.4), 0 0 60px rgba(255,153,51,0.15); }
+  to   { text-shadow: 0 0 50px rgba(255,153,51,0.65), 0 0 100px rgba(255,153,51,0.3); }
+}
+
+/* ============================================
    DUAL-TONE THEME: LIGHT + DARK
    ============================================ */
 :root, [data-theme="light"] {
