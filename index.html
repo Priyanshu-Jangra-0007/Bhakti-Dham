@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bhakti Dham — Devotional Music Sanctuary</title>
   <meta name="description"
-    content="Bhakti Dham is a devotional music platform where devotees can listen to bhajans and read sacred lyrics in one place.">
+    content="Bhakti Dham is a devotional music platform where devotees can listen to bhajans in one place.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=Mukta:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 
 <body class="smooth antialiased">
@@ -131,7 +131,7 @@
 
             <p class="mt-5 leading-relaxed max-w-[560px] font-[420]"
               style="font-size:clamp(16px,2.5vw,20px);color:var(--text-body);">
-              Listen to devotional music and read sacred lyrics anytime.
+              Listen to devotional music anytime.
               A calm, temple-inspired sanctuary for bhajans, stotras, and kirtan — ad-free, distraction-free.
             </p>
 
@@ -234,8 +234,7 @@
                 <span class="text-lg">🌓</span> Pure Dual Tone Themes
               </h4>
               <p class="text-[14.5px] leading-relaxed" style="color:var(--text-body);">
-                Toggle effortlessly between light mode (sunlit temple sanctum) and dark mode (nighttime stotra
-                meditation). Your setting is remembered on subsequent visits.
+                Toggle effortlessly between light mode (sunlit temple sanctum) and dark mode (nighttime stotra meditation). Your setting is remembered on subsequent visits.
               </p>
             </div>
             <div class="rounded-3xl border p-6 sm:p-8"
@@ -363,7 +362,7 @@
               Sadhana</h2>
 
             <p class="leading-relaxed" style="color:var(--text-body);">
-              Bhakti Dham is a devotional music platform where devotees can listen to bhajans and read sacred lyrics in
+              Bhakti Dham is a devotional music platform where devotees can listen to bhajans in
               one place. We designed this environment with absolute tranquility in mind. Every line of text, color
               transition, and audio interaction is optimized for quiet morning and evening prayer sessions (Sadhana).
             </p>
@@ -595,7 +594,7 @@
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
       </button>
-      <span class="text-[13px] tracking-[0.2em] font-[600] uppercase devanagari animate-pulse" style="color:var(--text-muted);">॥ अब बज रहा है ॥</span>
+      <span class="text-[13px] tracking-[0.2em] font-[600] uppercase devanagari animate-pulse" style="color:var(--text-muted);">॥ श्रवण साधना ॥</span>
       <button id="fullPlayerOptions" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition" aria-label="More options" style="color:var(--text-primary);">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="1"></circle>
@@ -685,8 +684,8 @@
       </button>
     </div>
 
-    <!-- Bottom Auxiliary Row (Queue & Lyrics) -->
-    <div class="w-full max-w-lg mx-auto flex items-center justify-between px-4 mt-auto mb-2 text-[13px]" style="color:var(--text-muted);">
+    <!-- Bottom Auxiliary Row (Queue) -->
+    <div class="w-full max-w-lg mx-auto flex items-center justify-center px-4 mt-auto mb-2 text-[13px]" style="color:var(--text-muted);">
       <button id="fullQueueBtn" class="flex items-center gap-2 font-[550] hover:text-orange-500 transition cursor-pointer" aria-label="Show Queue">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="8" y1="6" x2="21" y2="6"></line>
@@ -698,14 +697,6 @@
         </svg>
         <span>भजन सूची (Queue)</span>
       </button>
-
-      <button id="fullLyricsBtn" class="flex items-center gap-2 font-[550] hover:text-orange-500 transition cursor-pointer" aria-label="Show Lyrics">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 20h9"></path>
-          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-        </svg>
-        <span>काव्य (Lyrics)</span>
-      </button>
     </div>
 
   </div>
@@ -714,7 +705,7 @@
   <audio id="audioEl" preload="metadata"></audio>
 
   <!-- ==================== SCRIPTS ==================== -->
-  <script src="script.js?v=3" defer></script>
+  <script src="script.js?v=6" defer></script>
 </body>
 
 </html>

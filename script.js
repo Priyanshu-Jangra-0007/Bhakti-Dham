@@ -9,7 +9,7 @@ const songs = [
     deity: "Shiva",
     tag: "Shiva",
     durationLabel: "6:12",
-    image: "https://images.pexels.com/photos/14064750/pexels-photo-14064750.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
+    image: "https://images.pexels.com/photos/33351467/pexels-photo-33351467.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
     audio: "public/songs/Shiv Tandav Stotram.mp3"
   },
   {
@@ -19,7 +19,7 @@ const songs = [
     deity: "Hanuman",
     tag: "Hanuman",
     durationLabel: "7:44",
-    image: "https://images.pexels.com/photos/3519190/pexels-photo-3519190.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
+    image: "https://images.pexels.com/photos/12712521/pexels-photo-12712521.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
     audio: "public/songs/hanuman chalisa.mp3"
   },
   {
@@ -29,18 +29,48 @@ const songs = [
     deity: "Shiva",
     tag: "Mantra",
     durationLabel: "5:38",
-    image: "https://images.pexels.com/photos/18290864/pexels-photo-18290864.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
+    image: "https://images.pexels.com/photos/5546466/pexels-photo-5546466.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
     audio: "public/songs/Om Namah Shivay Dhun 108 Times.mp3"
   },
   {
     id: 4,
-    title: "Mahamrityunjaya Mantra",
-    artist: "Rigveda • Tryambakam",
+    title: "Shiv Aarti",
+    artist: "Om Jai Shiv Omkara • Traditional",
     deity: "Shiva",
-    tag: "Mantra",
-    durationLabel: "4:22",
-    image: "https://images.pexels.com/photos/29806359/pexels-photo-29806359.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
-    audio: "https://archive.org/download/shivamantrasandsongs/Om%20namah%20shivaya%202.mp3"
+    tag: "Shiva",
+    durationLabel: "5:10",
+    image: "https://images.pexels.com/photos/35775959/pexels-photo-35775959.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
+    audio: "public/songs/shiv aarti.webm"
+  },
+  {
+    id: 5,
+    title: "Namami Shameshaan",
+    artist: "Shiv Tandav • Devotional",
+    deity: "Shiva",
+    tag: "Shiva",
+    durationLabel: "9:45",
+    image: "https://images.pexels.com/photos/37250973/pexels-photo-37250973.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
+    audio: "public/songs/Namami shamesaan.webm"
+  },
+  {
+    id: 6,
+    title: "Hanuman Aarti",
+    artist: "Aarti Keeje Hanuman Lala Ki • Traditional",
+    deity: "Hanuman",
+    tag: "Hanuman",
+    durationLabel: "4:15",
+    image: "https://images.pexels.com/photos/29501739/pexels-photo-29501739.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
+    audio: "public/songs/Hanuman Aarti.webm"
+  },
+  {
+    id: 7,
+    title: "Ashutosh Shashank Shekhar",
+    artist: "Shiva Stuti • Classical",
+    deity: "Shiva",
+    tag: "Shiva",
+    durationLabel: "10:30",
+    image: "https://images.pexels.com/photos/37399739/pexels-photo-37399739.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=720",
+    audio: "public/songs/Ashutosh Shashank Shekhar_ 256kbps.webm"
   }
 ];
 
@@ -156,7 +186,7 @@ const fullPauseIcon = $('#fullPauseIcon');
 const fullNextBtn = $('#fullNextBtn');
 const fullRepeatBtn = $('#fullRepeatBtn');
 const fullQueueBtn = $('#fullQueueBtn');
-const fullLyricsBtn = $('#fullLyricsBtn');
+
 
 
 
@@ -254,7 +284,7 @@ function loadSong(idx, autoplay = false) {
   if (autoplay) { audio.play().then(() => { isPlaying = true; updatePlayUI(); }).catch(() => { }); }
 }
 
-function loadAndPlay(idx) { loadSong(idx, true); }
+function loadAndPlay(idx) { loadSong(idx, true); openFullPlayer(); }
 
 function togglePlay() {
   if (!audio.src) { loadSong(0, true); return; }
@@ -597,11 +627,7 @@ if (fullQueueBtn) {
     queueBtn.click();
   });
 }
-if (fullLyricsBtn) {
-  fullLyricsBtn.addEventListener('click', () => {
-    showToast("📖 " + songs[currentIndex].title + " का काव्य शीघ्र ही आ रहा है...");
-  });
-}
+
 
 /* ============================================
    INIT ROUTING

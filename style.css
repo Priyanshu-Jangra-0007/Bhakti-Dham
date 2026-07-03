@@ -449,9 +449,11 @@ body { background: var(--bg-primary); color: var(--text-body); margin:0; padding
   }
 }
 
-/* Body scroll lock when open */
-body.full-player-open {
-  overflow: hidden !important;
+/* Body scroll lock when open (mobile only — desktop keeps scrolling) */
+@media (max-width: 1023px) {
+  body.full-player-open {
+    overflow: hidden !important;
+  }
 }
 
 /* Clickable hover on bottom mini bar */

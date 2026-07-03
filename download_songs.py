@@ -7,8 +7,8 @@ songs = [
         "url": "https://archive.org/download/ShivaStotrasAndMantras/39Om%20Nammah%20Shivaya.mp3"
     },
     {
-        "filename": "Mahamrityunjaya Mantra.mp3",
-        "url": "https://archive.org/download/shivamantrasandsongs/Om%20namah%20shivaya%202.mp3"
+        "filename": "Shiv Aarti.mp3",
+        "url": "https://archive.org/download/ShivaStotrasAndMantras/42Om%20Jai%20Shiv%20Omkara.mp3"
     }
 ]
 
